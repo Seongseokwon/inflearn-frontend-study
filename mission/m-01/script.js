@@ -22,11 +22,20 @@ const MENU = {
   ],
 }
 
+const CART_ITEM = new Map();
+
 const MenuNavContainer = document.querySelector('.menu-list');
 const MenuSectionContainer = document.querySelector('.menu-section');
 
+const CartItemSection = document.querySelector('.cart-item-section');
+const ShowCartBtn = document.querySelector('.cart-btn');
+const CartCount = document.querySelector('.cart-cnt');
+
 const menuList = Object.keys(MENU);
 
+/**
+ * navigation 메뉴 만들어 줍니다.
+ */
 menuList.forEach(menu => {
   const menuItem = document.createElement('li');
   const menuBtn = document.createElement('button');
@@ -40,7 +49,6 @@ menuList.forEach(menu => {
 
   MenuNavContainer.appendChild(menuItem);
 });
-
 
 /**
  * 
@@ -63,13 +71,21 @@ function generateMenuCard (name, price, description, imagePath) {
         <p>${price.toLocaleString()}원</p>
       </header>
       <main>
-        ${description}
+        <div>
+          ${description}
+        </div>
+        <button type='button' class='add-cart' onclick='addCart("${name}", "${price}")'>
+          <img src='./assets/cart.jpeg' alt='add-cart-button'/>
+        </button>
       </main>
     </section>
   </div>
   `
 }
 
+/**
+ * 전체 메뉴가 보일 수 있도록 초기화 합니다.
+ */
 function initializeMenu() {
   menuList.forEach(menu => {
     if(menu !== 'All'){
@@ -83,6 +99,8 @@ function initializeMenu() {
 }
 
 function changeMenuView(menu){
+  MenuSectionContainer.style.display = 'grid';
+  CartItemSection.style.display = 'none';
   MenuSectionContainer.innerHTML = '';
   if(menu === 'ALL'){ initializeMenu(); return;}
   const menuItems = MENU[menu];
@@ -90,6 +108,50 @@ function changeMenuView(menu){
     const menuItem = generateMenuCard(item.name, item.price, item.description, item.imagePath);
     MenuSectionContainer.innerHTML += menuItem;
   });
+}
+
+
+/**
+ * 
+ * @param {string} name 상품명
+ * @param {number} price 상품가격
+ * 
+ * CART_ITEM 맵에 장바구니 버튼이 클릭된 상품의 정보를 저장합니다.
+ */
+function addCart(name, price) {
+  if (CART_ITEM.has(name)) {
+    const prevQuantity = CART_ITEM.get(name);
+    CART_ITEM.set(name, {...prevQuantity, quantity: prevQuantity.quantity + 1});
+  } else {
+    CART_ITEM.set(name, {quantity: 1, price})
+  }
+
+  let sum = 0;
+  CART_ITEM.forEach((value) => sum += value.quantity);
+  CartCount.style.display= 'flex';
+  CartCount.style.alignItems = 'center';
+  CartCount.style.justifyContent = 'center';
+  
+  if (sum < 10 )
+    CartCount.innerHTML = sum.toLocaleString();
+  else {
+    CartCount.style.fontSize = '12px';
+    CartCount.innerHTML = '10+'
+  };
+}
+ShowCartBtn.addEventListener('click', showCartView);
+function showCartView () {
+  MenuSectionContainer.style.display = 'none';
+  CartItemSection.style.display = 'flex';
+
+  if (CART_ITEM.size === 0) {
+    CartItemSection.innerHTML =`<div>
+      카트에 담긴 상품이 없습니다.
+    </div>`
+    return ;
+  } else {
+ 
+  }
 }
 
 initializeMenu();
