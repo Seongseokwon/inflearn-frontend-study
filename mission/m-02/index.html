@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./style.css">
+  <title>가위 바위 보</title>
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <img src="./assets/logo.png"/>
+    </header>
+    <main class="main">
+      <section class="score-board">
+        <div id='user-score' class="score">
+          <b>플레이어</b>
+          <p>0</p>
+        </div>
+        <div id='computer-score' class="score">
+          <b>컴퓨터</b>
+          <p>0</p>
+        </div>
+      </section>
+      <section class="input-game-count">
+        <input type="text" placeholder="게임수를 입력하세요">
+        <button type="button">게임 시작</button>
+      </section>
+      <section class="remaining-game">
+        <b>남은 횟수 :</b> 
+        <p>10</p>
+      </section>
+      <section class="btn-group">
+        <button type="button">가위</button>
+        <button type="button">바위</button>
+        <button type="button">보</button>
+      </section>
+      <section class="result">
+        단일 결과 및 최종 결과 출력
+      </section>
+    </main>
+  </div>
+</body>
+</html>
