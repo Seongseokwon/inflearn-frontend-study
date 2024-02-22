@@ -14,31 +14,28 @@
     <main class="main">
       <section class="score-board">
         <div id='user-score' class="score">
-          <b>플레이어</b>
-          <p>0</p>
         </div>
         <div id='computer-score' class="score">
-          <b>컴퓨터</b>
-          <p>0</p>
         </div>
       </section>
       <section class="input-game-count">
-        <input type="text" placeholder="게임수를 입력하세요">
-        <button type="button">게임 시작</button>
+        <input id ='total-game-count' type="text" placeholder="게임수를 입력하세요">
+        <button id='game-start-btn'type="button">게임 시작</button>
       </section>
-      <section class="remaining-game">
-        <b>남은 횟수 :</b> 
-        <p>10</p>
-      </section>
+      <section class="error-message"></section>
+      <section class="remaining-game"></section>
       <section class="btn-group">
-        <button type="button">가위</button>
-        <button type="button">바위</button>
-        <button type="button">보</button>
+        <button onclick='clickOption(0)'type="button">가위</button>
+        <button onclick='clickOption(1)'type="button">바위</button>
+        <button onclick='clickOption(2)'type="button">보</button>
       </section>
-      <section class="result">
-        단일 결과 및 최종 결과 출력
+      <section class="result"></section>
+      <section class="restart-btn-section">
+        <button type="button" onclick="restartGame()">재시작</button>
       </section>
     </main>
   </div>
+
+  <script src="./script.js"></script>
 </body>
 </html>
