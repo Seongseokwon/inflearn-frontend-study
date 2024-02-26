@@ -27,8 +27,8 @@ const CART_ITEM = new Map();
 const MenuNavContainer = document.querySelector('.menu-list');
 const MenuSectionContainer = document.querySelector('.menu-section');
 
-const CartItemSection = document.querySelector('.cart-item-section');
-const ShowCartBtn = document.querySelector('.cart-btn');
+// const CartItemSection = document.querySelector('.cart-item-section');
+// const ShowCartBtn = document.querySelector('.cart-btn');
 const CartCount = document.querySelector('.cart-cnt');
 
 const menuList = Object.keys(MENU);
@@ -42,6 +42,7 @@ menuList.forEach(menu => {
 
   menuItem.className = 'menu';
   menuBtn.innerText = menu;
+  
   menuBtn.addEventListener('click', () => {
     changeMenuView(menu);
   })
@@ -100,9 +101,11 @@ function initializeMenu() {
 
 function changeMenuView(menu){
   MenuSectionContainer.style.display = 'grid';
-  CartItemSection.style.display = 'none';
   MenuSectionContainer.innerHTML = '';
-  if(menu === 'ALL'){ initializeMenu(); return;}
+  if(menu === 'ALL'){ 
+    initializeMenu(); 
+    return;
+  }
   const menuItems = MENU[menu];
   menuItems.forEach(item => {
     const menuItem = generateMenuCard(item.name, item.price, item.description, item.imagePath);
@@ -139,19 +142,6 @@ function addCart(name, price) {
     CartCount.innerHTML = '10+'
   };
 }
-ShowCartBtn.addEventListener('click', showCartView);
-function showCartView () {
-  MenuSectionContainer.style.display = 'none';
-  CartItemSection.style.display = 'flex';
 
-  if (CART_ITEM.size === 0) {
-    CartItemSection.innerHTML =`<div>
-      카트에 담긴 상품이 없습니다.
-    </div>`
-    return ;
-  } else {
- 
-  }
-}
 
 initializeMenu();
